@@ -249,3 +249,268 @@
   if (p) p.addEventListener("click", function () { step(-1); });
   if (n) n.addEventListener("click", function () { step(1); });
 })();
+
+/* Sectional progressional scrolling: one section per wheel / arrow key, with a progress rail.
+   Tall sections keep normal scrolling inside them, then hand off to the next section. */
+(function () {
+  "use strict";
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll("main > section"));
+  if (!sections.length) return;
+
+  var header = document.querySelector(".site-header");
+  var mqReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+  var mqCoarse = window.matchMedia && window.matchMedia("(pointer: coarse)");
+
+  var currentIndex = 0;
+  var busyUntil = 0;
+  var anim = null;
+  var rail, track, fill, curEl, dots = [];
+
+  function reduce() { return !!(mqReduce && mqReduce.matches); }
+  function coarse() { return !!(mqCoarse && mqCoarse.matches); }
+  function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+  function headH() { return header ? header.offsetHeight : 0; }
+  function rectTop(el) { return el.getBoundingClientRect().top + window.pageYOffset; }
+  function sectionTop(i) { return Math.max(0, rectTop(sections[i]) - headH()); }
+  function maxScroll() { return Math.max(0, document.documentElement.scrollHeight - window.innerHeight); }
+  function viewH() { return Math.max(200, window.innerHeight - headH()); }
+
+  function labelFor(sec) {
+    var h = sec.querySelector("h1,h2,h3");
+    return ((h && h.textContent) || "Section").replace(/\s+/g, " ").trim().slice(0, 44);
+  }
+
+  function buildRail() {
+    rail = document.createElement("nav");
+    rail.className = "pg-rail";
+    rail.setAttribute("aria-label", "Section navigation");
+    rail.innerHTML = '<div class="pg-count" aria-hidden="true"><span class="pg-cur">1</span><span>/</span><span class="pg-total">' + sections.length + '</span></div>' +
+      '<div class="pg-track"><div class="pg-line"></div><div class="pg-fill"></div></div>';
+    curEl = rail.querySelector(".pg-cur");
+    track = rail.querySelector(".pg-track");
+    fill = rail.querySelector(".pg-fill");
+
+    sections.forEach(function (sec, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "pg-dot";
+      b.setAttribute("data-label", labelFor(sec));
+      b.setAttribute("aria-label", b.getAttribute("data-label"));
+      b.addEventListener("click", function () { goTo(i); });
+      track.appendChild(b);
+      dots.push(b);
+    });
+    document.body.appendChild(rail);
+  }
+
+  function updateUI(i) {
+    if (curEl) curEl.textContent = String(i + 1);
+    dots.forEach(function (d, j) {
+      var on = j === i;
+      d.classList.toggle("active", on);
+      if (on) d.setAttribute("aria-current", "true");
+      else d.removeAttribute("aria-current");
+    });
+  }
+
+  function dotCenter(i) {
+    var d = dots[i];
+    return d ? d.offsetTop + d.offsetHeight / 2 - 6 : 0;
+  }
+
+  // Smoothly move the rail's progress fill to the position matching a scroll offset.
+  function setFillForY(y) {
+    if (!fill || !dots.length) return;
+    var tops = [], i;
+    for (i = 0; i < sections.length; i++) tops.push(sectionTop(i));
+    var frac = sections.length - 1;
+    for (i = 0; i < sections.length - 1; i++) {
+      if (y < tops[i + 1]) {
+        var span = tops[i + 1] - tops[i];
+        frac = span > 0 ? i + clamp((y - tops[i]) / span, 0, 1) : i;
+        break;
+      }
+    }
+    var a = Math.min(Math.floor(frac), dots.length - 1);
+    var b = Math.min(a + 1, dots.length - 1);
+    var h1 = dotCenter(a), h2 = dotCenter(b);
+    fill.style.height = Math.max(0, h1 + (h2 - h1) * (frac - a)) + "px";
+  }
+
+  function syncHeader() {
+    document.documentElement.style.setProperty("--pg-header", headH() + "px");
+  }
+
+  function syncIndex() {
+    var y = window.pageYOffset + headH() + 12;
+    var idx = 0;
+    for (var i = 0; i < sections.length; i++) if (rectTop(sections[i]) <= y) idx = i;
+    currentIndex = idx;
+    updateUI(idx);
+  }
+
+  function cancelAnim() {
+    if (!anim) return;
+    clearTimeout(anim.timer);
+    anim = null;
+    document.documentElement.style.scrollBehavior = "";
+  }
+
+  // Custom eased scroll animation (browser "smooth" scroll is abrupt and ignores easing).
+  function animateTo(target, duration) {
+    target = clamp(target, 0, maxScroll());
+    var start = window.pageYOffset;
+    var dist = target - start;
+    cancelAnim();
+
+    if (Math.abs(dist) < 2) {
+      window.scrollTo(0, target);
+      setFillForY(target);
+      busyUntil = performance.now() + 140;
+      return;
+    }
+
+    var dur = duration || clamp(Math.abs(dist) * 0.6, 500, 900);
+    // Keep a visible glide for everyone; just shorten it when reduced motion is requested.
+    if (reduce()) dur = Math.min(dur, 320);
+    var t0 = performance.now();
+    var root = document.documentElement;
+    root.style.scrollBehavior = "auto"; // override the CSS smooth scroll while animating
+    var a = { timer: 0, expected: start };
+    anim = a;
+    busyUntil = t0 + dur + 80;
+
+    function frame() {
+      if (anim !== a) return;
+      var now = performance.now();
+      var p = Math.min(1, (now - t0) / dur);
+      // easeInOutCubic: gentle start, quick middle, soft landing
+      var e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      a.expected = start + dist * e;
+      window.scrollTo(0, a.expected);
+      setFillForY(a.expected);
+      if (p < 1) {
+        a.timer = setTimeout(frame, 16);
+      } else {
+        window.scrollTo(0, target);
+        anim = null;
+        root.style.scrollBehavior = "";
+      }
+    }
+    a.timer = setTimeout(frame, 16);
+  }
+
+  function goTo(i) {
+    i = clamp(i, 0, sections.length - 1);
+    currentIndex = i;
+    updateUI(i);
+    animateTo(sectionTop(i));
+  }
+
+  function step(dir) {
+    var now = performance.now();
+    if (now < busyUntil) return;
+
+    var i = clamp(currentIndex, 0, sections.length - 1);
+    var sec = sections[i];
+    var top = sectionTop(i);
+    var vh = viewH();
+    var maxY = (i === sections.length - 1)
+      ? maxScroll()
+      : Math.max(top, top + sec.offsetHeight - vh);
+    var y = window.pageYOffset;
+
+    if (dir > 0 && y < maxY - 8) {
+      animateTo(Math.min(y + vh * 0.9, maxY), 520);
+      return;
+    }
+    if (dir > 0 && i === sections.length - 1 && y >= maxY - 8) return;
+
+    if (dir < 0 && y > top + 8) {
+      animateTo(Math.max(y - vh * 0.9, top), 520);
+      return;
+    }
+    goTo(i + dir);
+  }
+
+  function isTypingTarget(t) {
+    if (!t) return false;
+    if (t.isContentEditable) return true;
+    var tag = t.tagName;
+    return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "VIDEO";
+  }
+
+  buildRail();
+  syncHeader();
+  syncIndex();
+  setFillForY(window.pageYOffset);
+
+  if (!coarse()) {
+    window.addEventListener("wheel", function (e) {
+      if (e.ctrlKey || e.metaKey) return;
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.2) return;
+      if (isTypingTarget(e.target)) return;
+      e.preventDefault();
+      if (performance.now() < busyUntil) return;
+      step(e.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    var t = e.target, k = e.key;
+    if (isTypingTarget(t)) return;
+    if (k === " " && t && (t.tagName === "BUTTON" || t.tagName === "A" || t.tagName === "SUMMARY")) return;
+    if (k === "ArrowDown" || k === "PageDown" || k === " ") { e.preventDefault(); step(1); }
+    else if (k === "ArrowUp" || k === "PageUp") { e.preventDefault(); step(-1); }
+    else if (k === "Home") { e.preventDefault(); goTo(0); }
+    else if (k === "End") { e.preventDefault(); goTo(sections.length - 1); }
+  });
+
+  // Touch scrolling should always win over an in-progress animation.
+  document.addEventListener("touchstart", function () {
+    if (anim) { cancelAnim(); busyUntil = 0; }
+  }, { passive: true });
+
+  var ticking = false;
+  window.addEventListener("scroll", function () {
+    setFillForY(window.pageYOffset);
+    if (ticking) return;
+    ticking = true;
+    setTimeout(function () {
+      ticking = false;
+      if (performance.now() < busyUntil) return;
+      syncIndex();
+    }, 30);
+  }, { passive: true });
+
+  var resizeT;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function () {
+      syncHeader();
+      updateUI(currentIndex);
+      setFillForY(window.pageYOffset);
+    }, 120);
+  });
+
+  // Keep anchor navigation and the language toggle in sync.
+  Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]')).forEach(function (a) {
+    a.addEventListener("click", function () {
+      var id = a.getAttribute("href").slice(1);
+      if (!id) return;
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].id === id) { cancelAnim(); busyUntil = performance.now() + 560; currentIndex = i; updateUI(i); break; }
+      }
+    });
+  });
+  var langBtn = document.getElementById("langToggle");
+  if (langBtn) langBtn.addEventListener("click", function () {
+    sections.forEach(function (sec, i) {
+      var l = labelFor(sec);
+      dots[i].setAttribute("data-label", l);
+      dots[i].setAttribute("aria-label", l);
+    });
+  });
+})();

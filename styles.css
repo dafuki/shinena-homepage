@@ -178,6 +178,25 @@ p{margin:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 .no-js .reveal{opacity:1;transform:none}
 
+/* sectional progressional scrolling - progress rail */
+.pg-rail{position:fixed;top:50%;right:14px;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--font)}
+html[dir=rtl] .pg-rail{right:auto;left:14px}
+.pg-count{direction:ltr;display:flex;align-items:baseline;gap:3px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 10px;box-shadow:var(--shadow);font:800 12px/1 var(--font);color:var(--muted)}
+.pg-count .pg-cur{font-size:15px;color:var(--green-m)}
+.pg-track{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0}
+.pg-line,.pg-fill{position:absolute;top:6px;left:50%;width:3px;transform:translateX(-50%);border-radius:3px;pointer-events:none}
+.pg-line{bottom:6px;background:#bbf7d0}
+.pg-fill{height:0;background:var(--green)}
+.pg-dot{position:relative;z-index:1;width:14px;height:14px;padding:0;border:2px solid var(--green);border-radius:50%;background:#fff;cursor:pointer;transition:transform .2s,background .2s,border-color .2s}
+.pg-dot:hover{transform:scale(1.25)}
+.pg-dot.active{background:var(--gold-2);border-color:var(--gold-edge);transform:scale(1.35);box-shadow:0 0 0 4px #fbbf2433}
+.pg-dot::after{content:attr(data-label);position:absolute;top:50%;right:calc(100% + 12px);transform:translateY(-50%);white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis;background:var(--green-d);color:#fff;font:700 12px/1.2 var(--font);padding:7px 10px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .15s;box-shadow:var(--shadow)}
+html[dir=rtl] .pg-dot::after{right:auto;left:calc(100% + 12px)}
+.pg-dot:hover::after,.pg-dot:focus-visible::after{opacity:1}
+@media (max-width:900px){.pg-rail{display:none}}
+@media (pointer:coarse){html{scroll-snap-type:y proximity}main>section{scroll-snap-align:start;scroll-margin-top:var(--pg-header,84px)}}
+@media (prefers-reduced-motion:reduce){.pg-dot{transition:none}}
+
 /* responsive */
 @media (max-width:1000px){
   .topnav a:not(.lang-btn){display:none}
