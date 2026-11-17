@@ -24,9 +24,9 @@ Copy it field by field into the Play Console.
 
 | Asset | Required | File |
 |---|---|---|
-| App icon | 512 × 512 PNG, 32-bit | `graphics/icon-512.png` |
-| Feature graphic | 1024 × 500 PNG/JPEG | `graphics/feature-graphic-1024x500.png` |
-| Phone screenshots | 2–8, 320–3840 px, 16:9 or 9:16 | `graphics/screenshots/` |
+| App icon | 512 × 512 PNG, 32-bit | `graphics/icon_512x512.png` |
+| Feature graphic | 1024 × 500 PNG/JPEG | `graphics/feature_graphic_1024x500.png` |
+| Phone screenshots | 2–8, 320–3840 px, 16:9 or 9:16 | `graphics/screenshots-mobile/` (1080x2160) and `graphics/screenshots-desktop/` (1080x1920) |
 
 **Target audience & content rating**
 

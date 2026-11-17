@@ -1,160 +1,222 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>שיננא — שינון תורה במשחק</title>
-  <meta name="description" content="שיננא — שינון משנה, תנ״ך, גמרא והלכה בעל פה, עם זיהוי קולי וחזרות חכמות. בחינם." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Hofshi:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="styles.css" />
-  <script src="config.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>שיננא - שינון משנה, תנ״ך וגמרא כמו במשחק | אפליקציה חינמית</title>
+<meta name="description" content="שיננא: אפליקציה חינמית לשינון משנה, תנ״ך וגמרא בעל פה. מדקלמים בקול, מקבלים ציון מיידי, מתקדמים במפת הרפתקאות וחוזרים בזמן עם SM-2. בלי פרסומות.">
+<meta name="keywords" content="שיננא, שינון, שינון משנה, שינון תנ״ך, שינון גמרא, אפליקציה ללימוד תורה, דקלום, חזרות מרווחות, SM-2, Shinena">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#16a34a">
+<link rel="canonical" href="https://shinena.vercel.app/">
+<link rel="alternate" hreflang="he" href="https://shinena.vercel.app/">
+<link rel="alternate" hreflang="x-default" href="https://shinena.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="שיננא">
+<meta property="og:locale" content="he_IL">
+<meta property="og:title" content="שיננא - ללמוד. לשנן. לזכור.">
+<meta property="og:description" content="שינון משנה, תנ״ך וגמרא כמו במשחק. דקלום בקול, בדיקה בזמן אמת, מפת הרפתקאות וחזרות חכמות. חינם ובלי פרסומות.">
+<meta property="og:url" content="https://shinena.vercel.app/">
+<meta property="og:image" content="https://shinena.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="שיננא: הדמות של האפליקציה ומסך הבית, עם הכיתוב ללמוד. לשנן. לזכור.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="שיננא - ללמוד. לשנן. לזכור.">
+<meta name="twitter:description" content="שינון משנה, תנ״ך וגמרא כמו במשחק. חינם ובלי פרסומות.">
+<meta name="twitter:image" content="https://shinena.vercel.app/og-image.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/app-home-lg.webp" fetchpriority="high">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": ["SoftwareApplication", "MobileApplication"], "name": "שיננא", "alternateName": ["Shinena", "שיננא - שינון תורה במשחק"], "url": "https://shinena.vercel.app/", "description": "אפליקציה חינמית לשינון משנה, תנ״ך וגמרא בעל פה, עם זיהוי קולי בעברית, מפת הרפתקאות וחזרות חכמות בשיטת SM-2.", "applicationCategory": "EducationalApplication", "operatingSystem": "Android, Web", "inLanguage": ["he", "en"], "image": "https://shinena.vercel.app/og-image.png", "screenshot": ["https://shinena.vercel.app/graphics/screenshots-mobile/screenshot_1.png", "https://shinena.vercel.app/graphics/screenshots-mobile/screenshot_2.png", "https://shinena.vercel.app/graphics/screenshots-mobile/screenshot_3.png", "https://shinena.vercel.app/graphics/screenshots-mobile/screenshot_4.png", "https://shinena.vercel.app/graphics/screenshots-mobile/screenshot_5.png", "https://shinena.vercel.app/graphics/screenshots-mobile/screenshot_6.png"], "offers": {"@type": "Offer", "price": "0", "priceCurrency": "ILS"}, "isAccessibleForFree": true, "audience": {"@type": "Audience", "audienceType": "Torah learners"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "שיננא", "alternateName": "Shinena", "url": "https://shinena.vercel.app/", "inLanguage": "he"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "he", "mainEntity": [{"@type": "Question", "name": "האם שיננא באמת חינמית?", "acceptedAnswer": {"@type": "Answer", "text": "כן. שיננא חינמית, בלי פרסומות ובלי רכישות באפליקציה. תרומות עוזרות לממן שרתים ומקורות חדשים."}}, {"@type": "Question", "name": "אפשר ללמוד בלי אינטרנט?", "acceptedAnswer": {"@type": "Answer", "text": "כן. הטקסטים (כ-11 מגה בייט) יורדים פעם אחת בהפעלה הראשונה, ומשם האפליקציה עובדת גם בלי קליטה."}}, {"@type": "Question", "name": "אילו טקסטים יש באפליקציה?", "acceptedAnswer": {"@type": "Answer", "text": "כל 63 מסכתות המשנה, התנ״ך כולו, הגמרא הבבלית, הרמב״ם ושולחן ערוך."}}, {"@type": "Question", "name": "איך שיננא בודקת את הדקלום?", "acceptedAnswer": {"@type": "Answer", "text": "מדקלמים למיקרופון, והזיהוי הקולי בעברית משווה את מה שנאמר לטקסט מילה אחר מילה, כולל ניקוד, ומראה בדיוק איפה הייתה טעות."}}, {"@type": "Question", "name": "מה זה SM-2?", "acceptedAnswer": {"@type": "Answer", "text": "שיטת חזרות מרווחות. האלגוריתם מחשב מתי כל קטע צריך לחזור, לפי כמה טוב ידעתם אותו, כך שחוזרים בדיוק לפני שוכחים."}}, {"@type": "Question", "name": "על אילו מכשירים זה עובד?", "acceptedAnswer": {"@type": "Answer", "text": "אפשר לשחק עכשיו בדפדפן, בטלפון, בטאבלט ובמחשב, ויש גם גרסת בטא לאנדרואיד. גרסאות החנות בדרך."}}, {"@type": "Question", "name": "ההקלטה שלי נשמרת?", "acceptedAnswer": {"@type": "Answer", "text": "ההקלטה לא עוזבת את המכשיר אלא אם ביקשתם שנבדוק אותה. כל הפרטים במדיניות הפרטיות."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoObject", "name": "שיננא ב-60 שניות", "description": "הצצה לאפליקציית שיננא: דקלום בקול, מפת הרפתקאות וחזרות חכמות.", "thumbnailUrl": "https://shinena.vercel.app/assets/video/poster.webp", "contentUrl": "https://shinena.vercel.app/assets/video/shinena-promo.mp4", "uploadDate": "2026-11-17", "duration": "PT59S", "inLanguage": "he"}</script>
+<script src="config.js"></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap header-row">
-      <a class="brand" href="#top" data-i18n="brand">🦁 שיננא</a>
-      <nav class="topnav">
-        <a href="#features" data-i18n="navFeatures">מה יש בפנים</a>
-        <a href="#how" data-i18n="navHow">איך זה עובד</a>
-        <a href="#get" data-i18n="navGet">הורדה</a>
-        <a href="#donate" data-i18n="navDonate">תרומה</a>
-        <a href="#contact" data-i18n="navContact">צור קשר</a>
-        <a href="privacy-he.html" data-i18n="navPrivacy" data-i18n-href="privacy.html">פרטיות</a>
-        <button id="langToggle" class="lang-btn" type="button">EN</button>
-      </nav>
-      <a class="btn btn-primary" data-app-link href="#" data-i18n="playNow">שחק עכשיו ▶</a>
-    </div>
-  </header>
+<a class="skip" href="#main" data-i18n="skip">דלגו לתוכן</a>
+<header class="site-header">
+<div class="wrap header-row">
+<a class="brand" href="#top" aria-label="שיננא - לראש הדף"><img src="icon-192.png" width="44" height="44" alt="" class="brand-ico"><span class="brand-txt"><strong data-i18n="brand">שיננא</strong><small data-i18n="tag">ללמוד. לשנן. לזכור.</small></span></a>
+<nav class="topnav" aria-label="ניווט ראשי">
+<a href="#how" data-i18n="nHow">איך זה עובד</a>
+<a href="#features" data-i18n="nFeat">יתרונות</a>
+<a href="#shots" data-i18n="nShots">צילומי מסך</a>
+<a href="#library" data-i18n="nLib">הספרייה</a>
+<a href="#faq" data-i18n="nFaq">שאלות</a>
+<a href="#get" data-i18n="nGet">הורדה</a>
+<button id="langToggle" class="lang-btn" type="button" aria-label="Switch language">EN</button>
+</nav>
+<a class="btn btn-primary btn-sm" data-app-link href="#" data-i18n="playNow">נתחיל ללמוד</a>
+</div>
+</header>
+<main id="main">
+<section class="hero" id="top">
+<div class="wrap hero-grid">
+<div class="hero-txt">
+<span class="pill" data-i18n="kicker">✦ שינון תורה בעל פה, כמו במשחק</span>
+<h1 data-i18n="h1">ללמוד. לשנן. לזכור.</h1>
+<p class="lede" data-i18n="lede">שיננא היא אפליקציה חינמית לשינון משנה, תנ״ך, גמרא ועוד. מדקלמים בקול, שיננא בודקת כל מילה בזמן אמת, ואתם צוברים כוכבים ונקודות בדרך אל הפרק הבא.</p>
+<div class="cta-row">
+<a class="btn btn-gold btn-big" data-app-link href="#"><span data-i18n="cta1">נתחיל ללמוד</span><span aria-hidden="true" class="arr">←</span></a>
+<a class="btn btn-ghost btn-big" href="#get" data-i18n="cta2">הורדה לאנדרואיד</a>
+</div>
+<ul class="ticks">
+<li data-i18n="tk1">חינם, בלי פרסומות ובלי רכישות</li>
+<li data-i18n="tk2">עובדת גם בלי אינטרנט</li>
+<li data-i18n="tk3">ממשק בעברית ובאנגלית</li>
+</ul>
+</div>
+<div class="hero-art">
+<div class="phone phone-hero"><img src="assets/img/app-home-lg.webp" width="800" height="1333" alt="מסך הבית של אפליקציית שיננא: המסע שלך מתחיל כאן" fetchpriority="high"></div>
+<img class="hero-mascot" src="assets/img/mascot-celebrating.webp" width="368" height="700" alt="שיננא, הדמות של האפליקציה, קופץ משמחה">
+<span class="bubble" data-i18n="bubble">מילה במילה, צעד אחר צעד!</span>
+</div>
+</div>
+</section>
 
-  <main id="top">
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <p class="kicker" data-i18n="kicker">בית מדרש גיימינג לשינון מקורות</p>
-          <h1 data-i18n="heroTitle">שיננא — משננים בעל פה, כמו במשחק</h1>
-          <p class="lede" data-i18n="heroSub">משנה, תנ״ך, גמרא, רמב״ם ושולחן ערוך — מדקלמים למיקרופון, מקבלים ציון מיידי, צוברים XP ורצפים, וחוזרים בדיוק בזמן עם שיטת SM-2.</p>
-          <div class="cta-row">
-            <a class="btn btn-big btn-primary" data-app-link href="#" data-i18n="playNow2">התחל לשנן — בחינם ▶</a>
-            <a class="btn btn-big btn-ghost" href="#get" data-i18n="getApp">הורד לאנדרואיד / אייפון</a>
-          </div>
-          <ul class="ticks">
-            <li data-i18n="tick1">✓ זיהוי קולי בעברית, כולל ניקוד</li>
-            <li data-i18n="tick2">✓ כל הש״ס, התנ״ך והמשנה — מהדפדפן או מהאפליקציה</li>
-            <li data-i18n="tick3">✓ הישגים, דירוגים ומפת עולם מתקדמת</li>
-          </ul>
-        </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="phone-mock">
-            <div class="phone-screen">
-              <div class="mock-row mock-title">מסכת ברכות · פרק א</div>
-              <div class="mock-stars">★★★★★</div>
-              <div class="mock-row mock-xp"><span class="xp-pulse">+228 XP 🔥×5</span></div>
-              <div class="mock-btn">התחל בחינה בזירה ▶</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<section class="stats" aria-label="במספרים">
+<div class="wrap stats-row">
+<div><b>63</b><span data-i18n="st1">מסכתות משנה</span></div>
+<div><b>39</b><span data-i18n="st2">ספרי תנ״ך</span></div>
+<div><b>14</b><span data-i18n="st3">ערכות נושא</span></div>
+<div><b>0</b><span data-i18n="st4">פרסומות</span></div>
+</div>
+</section>
 
-    <section id="features" class="section">
-      <div class="wrap">
-        <h2 data-i18n="featuresTitle">מה יש בפנים</h2>
-        <div class="cards">
-          <div class="card"><div class="card-emoji">⚔️</div><h3 data-i18n="f1t">זירת השינון</h3><p data-i18n="f1d">מדקלמים בעל פה מול המיקרופון — בדיקת דיוק מילה-במילה בזמן אמת, קומבו ו-XP.</p></div>
-          <div class="card"><div class="card-emoji">🗺️</div><h3 data-i18n="f2t">מפת עולם</h3><p data-i18n="f2d">כל משנה ופסוק הם שלב במסע — כובשים עולמות: משנה, תנ״ך, שבילי נהרדעא.</p></div>
-          <div class="card"><div class="card-emoji">🧠</div><h3 data-i18n="f3t">חזרות חכמות SM-2</h3><p data-i18n="f3d">המערכת מחזירה כל קטע בדיוק כשעומדים לשכוח אותו. שינון שנשמר לשנים.</p></div>
-          <div class="card"><div class="card-emoji">🏅</div><h3 data-i18n="f4t">הישגים ודירוגים</h3><p data-i18n="f4d">תגים, רצפי ימים, דירוג עולמי, לפי מדינה, נושא וספר.</p></div>
-          <div class="card"><div class="card-emoji">📖</div><h3 data-i18n="f5t">פרשות, דפים והלכות</h3><p data-i18n="f5d">תורה לפי פרשות, גמרא לפי דפים, רמב״ם ושו״ע — הכל מהמקור, בחינם.</p></div>
-          <div class="card"><div class="card-emoji">🎨</div><h3 data-i18n="f6t">14 ערכות נושא</h3><p data-i18n="f6d">ממסע ביער ועד ארקייד — כל שחקן מעצב את הזירה שלו.</p></div>
-        </div>
-      </div>
-    </section>
+<section id="how" class="section">
+<div class="wrap">
+<h2 data-i18n="howT">שלושה צעדים לדקלום שנשאר</h2>
+<p class="sub" data-i18n="howS">בלי הכנות ארוכות. פותחים, בוחרים ומתחילים.</p>
+<ol class="steps">
+<li class="reveal"><span class="num">1</span><h3 data-i18n="s1t">בוחרים קטע</h3><p data-i18n="s1d">מסכת, פרק ומשנה, או ספר, פרק ופסוק. קטע קצר או פרק שלם, ברמת קושי שמתאימה לכם.</p></li>
+<li class="reveal"><span class="num">2</span><h3 data-i18n="s2t">מדקלמים בקול</h3><p data-i18n="s2d">לוחצים על המיקרופון ומדקלמים. שיננא משווה כל מילה לטקסט, מסמנת מה נפל ונותנת ניקוד.</p></li>
+<li class="reveal"><span class="num">3</span><h3 data-i18n="s3t">חוזרים בזמן</h3><p data-i18n="s3d">מסיימים שלב, צוברים כוכבים, ושיטת SM-2 מחזירה את הקטע בדיוק לפני שהוא נשכח.</p></li>
+</ol>
+</div>
+</section>
 
-    <section id="how" class="section alt">
-      <div class="wrap">
-        <h2 data-i18n="howTitle">איך זה עובד — 3 צעדים</h2>
-        <ol class="steps">
-          <li><strong data-i18n="s1t">1. בוחרים מקטע</strong><span data-i18n="s1d">מסכת, פרק ומשנה — או פרשה, דף גמרא והלכה.</span></li>
-          <li><strong data-i18n="s2t">2. מתאמנים ומדקלמים</strong><span data-i18n="s2d">רמזים מדורגים, ואז דקלום מלא למיקרופון.</span></li>
-          <li><strong data-i18n="s3t">3. מתקדמים וחוזרים</strong><span data-i18n="s3d">ציון, XP, כוכבים — וחזרה אוטומטית לפני השכחה.</span></li>
-        </ol>
-      </div>
-    </section>
+<section id="features" class="section alt">
+<div class="wrap">
+<h2 data-i18n="fT">כל מה שצריך כדי להמשיך ללמוד</h2>
+<div class="cards"><article class="card reveal"><div class="card-ico" aria-hidden="true">⚔️</div><h3 data-i18n="f1t">דקלום בקול, בדיקה בזמן אמת</h3><p data-i18n="f1d">זיהוי קולי בעברית שמבין גם ניקוד. כל מילה נבדקת תוך כדי הדקלום, כך שתדעו מיד איפה נתקעתם.</p></article><article class="card reveal"><div class="card-ico" aria-hidden="true">🗺️</div><h3 data-i18n="f2t">מפת הרפתקאות</h3><p data-i18n="f2d">כל פרק הוא שלב בשביל מתפתל. פותחים את השלב הבא, ולכל עולם יש נוף משלו: משנה, תנ״ך וגמרא.</p></article><article class="card reveal"><div class="card-ico" aria-hidden="true">💡</div><h3 data-i18n="f3t">רמזים מדורגים</h3><p data-i18n="f3d">מהאות הראשונה של כל מילה ועד דקלום מלא. מתחילים עם עזרה ומורידים אותה בהדרגה.</p></article><article class="card reveal"><div class="card-ico" aria-hidden="true">🧠</div><h3 data-i18n="f4t">חזרות חכמות (SM-2)</h3><p data-i18n="f4d">האלגוריתם קובע מתי כל קטע צריך לחזור, לפי כמה טוב ידעתם אותו. עשר דקות ביום מספיקות.</p></article><article class="card reveal"><div class="card-ico" aria-hidden="true">🏆</div><h3 data-i18n="f5t">רצפים, תגים ודירוגים</h3><p data-i18n="f5d">יעד יומי, רצף ימים, תגים והישגים. הדירוג מתחלק לפי מדינה, נושא וספר, כדי שתמיד יהיה מי להתחרות מולו.</p></article><article class="card reveal"><div class="card-ico" aria-hidden="true">🎨</div><h3 data-i18n="f6t">14 ערכות נושא</h3><p data-i18n="f6d">מאבן ירושלמית ועד ארקייד. מחליפים בכל רגע, וההתקדמות נשארת.</p></article></div>
+</div>
+</section>
 
-    <section id="get" class="section">
-      <div class="wrap">
-        <h2 data-i18n="getTitle">מורידים ומשחקים</h2>
-        <p class="lede" data-i18n="getSub">האפליקציה בדפדפן כבר עובדת במלואה. גרסאות החנות בדרך.</p>
-        <div class="store-row">
-          <a class="store-btn" data-store="android-apk" href="#">
-            <svg class="store-svg" viewBox="0 0 512 512" aria-hidden="true">
-              <polygon points="70,60 200,186 200,326 70,452" fill="#00A0FF"/>
-              <polygon points="70,60 330,192 200,186" fill="#FFCE00"/>
-              <polygon points="70,452 330,320 200,326" fill="#FF3A44"/>
-              <polygon points="200,186 330,192 452,256 330,320 200,326" fill="#00F076"/>
-            </svg>
-            <span><strong data-i18n="apkT">אנדרואיד (בטא ישירה)</strong><small data-i18n="apkD">קובץ APK להתקנה ידנית</small></span>
-          </a>
-          <a class="store-btn" data-store="play" href="#">
-            <svg class="store-svg" viewBox="0 0 512 512" aria-hidden="true">
-              <polygon points="70,60 200,186 200,326 70,452" fill="#00A0FF"/>
-              <polygon points="70,60 330,192 200,186" fill="#FFCE00"/>
-              <polygon points="70,452 330,320 200,326" fill="#FF3A44"/>
-              <polygon points="200,186 330,192 452,256 330,320 200,326" fill="#00F076"/>
-            </svg>
-            <span><strong>Google Play</strong><small data-store-note="play" data-i18n="soon">בקרוב</small></span>
-          </a>
-          <a class="store-btn" data-store="ios" href="#">
-            <svg class="store-svg" viewBox="0 0 384 512" aria-hidden="true">
-              <path fill="#ffffff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
-            </svg>
-            <span><strong>App Store</strong><small data-store-note="ios" data-i18n="soon2">בקרוב</small></span>
-          </a>
-        </div>
-      </div>
-    </section>
+<section class="section">
+<div class="wrap spots"><div class="spot reveal"><div class="spot-img"><div class="phone"><img src="assets/img/app-map.webp" width="600" height="1000" loading="lazy" decoding="async" alt="מפת ההרפתקאות של שיננא עם שלבים בשביל מתפתל"></div></div>
+<div class="spot-txt"><span class="eyebrow" data-i18n="sp1e">המפה</span><h3 data-i18n="sp1t">המסע שלכם, שלב אחרי שלב</h3><p data-i18n="sp1p">במקום רשימת פרקים יש עולם שלם. כל משנה היא עצירה בדרך, וצבע השלב מספר מה כבר למדתם ומה מחכה לחזרה.</p><ul class="checks"><li data-i18n="sp1a">שלב ירוק: נלמד היטב</li><li data-i18n="sp1b">שלב כתום: הגיע זמן לחזור</li><li data-i18n="sp1c">לכל ספר נוף משלו</li></ul></div></div><div class="spot flip reveal"><div class="spot-img"><div class="phone"><img src="assets/img/app-arena.webp" width="600" height="1000" loading="lazy" decoding="async" alt="זירת הדקלום של שיננא עם כפתור מיקרופון"></div></div>
+<div class="spot-txt"><span class="eyebrow" data-i18n="sp2e">הזירה</span><h3 data-i18n="sp2t">מדקלמים, ושיננא מקשיבה</h3><p data-i18n="sp2p">לוחצים על המיקרופון ומדקלמים. התמליל מופיע בזמן אמת, והמילים שנפלו מסומנות, כדי שתדעו מה לחזק בפעם הבאה.</p><ul class="checks"><li data-i18n="sp2a">זיהוי קולי בעברית, כולל ניקוד</li><li data-i18n="sp2b">ציון, נקודות XP וקומבו</li><li data-i18n="sp2c">אפשר גם בהקלדה ידנית</li></ul></div></div><div class="spot reveal"><div class="spot-img"><div class="phone"><img src="assets/img/app-track.webp" width="600" height="1000" loading="lazy" decoding="async" alt="מסך המעקב והחזרות של שיננא"></div></div>
+<div class="spot-txt"><span class="eyebrow" data-i18n="sp3e">החזרות</span><h3 data-i18n="sp3t">חוזרים בדיוק בזמן</h3><p data-i18n="sp3p">שיטת SM-2 מחשבת מתי כל קטע צריך לחזור. אתם רואים יעד יומי, רצף ודיוק, והאפליקציה מזכירה מה כדאי לחזור עליו היום.</p><ul class="checks"><li data-i18n="sp3a">יעד יומי ורצף ימים</li><li data-i18n="sp3b">דיוק והתקדמות לאורך זמן</li><li data-i18n="sp3c">כפתור אחד: "חזרה לשינון"</li></ul></div></div></div>
+</section>
 
-    <section id="donate" class="section alt">
-      <div class="wrap narrow">
-        <h2 data-i18n="donateTitle">אוהבים? עזרו לשיננא לצמוח 💛</h2>
-        <p data-i18n="donateSub">שיננא חינמית ותישאר חינמית. תרומתכם מממנת שרתים, הקלטות ומקורות חדשים.</p>
-        <a class="btn btn-big btn-primary" data-donate-link href="#" data-i18n="donateBtn">לתרומה מאובטחת 💛</a>
-      </div>
-    </section>
+<section id="shots" class="section alt">
+<div class="wrap">
+<h2 data-i18n="gT">מבט מתוך האפליקציה</h2>
+<p class="sub" data-i18n="gS">צילומי מסך אמיתיים מהגרסה החדשה. גוללים הצידה כדי לראות עוד.</p>
+<div class="gal-wrap"><button class="gal-btn" id="galPrev" type="button" aria-label="הקודם">›</button>
+<div class="gallery" id="gallery" tabindex="0" aria-label="גלריית צילומי מסך"><figure class="shot"><div class="phone"><img src="assets/img/app-home.webp" width="600" height="1000" loading="lazy" decoding="async" alt="מסך הבית של שיננא: "המסע שלך מתחיל כאן" וכפתור "נתחיל ללמוד""></div><figcaption data-i18n="g1">הבית: צעד אחד ברור</figcaption></figure><figure class="shot"><div class="phone"><img src="assets/img/app-map.webp" width="600" height="1000" loading="lazy" decoding="async" alt="מפת ההרפתקאות של שיננא עם שלבים בשביל מתפתל"></div><figcaption data-i18n="g2">מפת הרפתקאות</figcaption></figure><figure class="shot"><div class="phone"><img src="assets/img/app-picker.webp" width="600" height="1000" loading="lazy" decoding="async" alt="בחירת מסכת, פרק וקושי באפליקציית שיננא"></div><figcaption data-i18n="g3">בוחרים קטע וקושי</figcaption></figure><figure class="shot"><div class="phone"><img src="assets/img/app-arena.webp" width="600" height="1000" loading="lazy" decoding="async" alt="זירת הדקלום של שיננא עם כפתור מיקרופון"></div><figcaption data-i18n="g4">זירת הדקלום</figcaption></figure><figure class="shot"><div class="phone"><img src="assets/img/app-hints.webp" width="600" height="1000" loading="lazy" decoding="async" alt="רמזי אות ראשונה לכל מילה בשיננא"></div><figcaption data-i18n="g5">רמזים מדורגים</figcaption></figure><figure class="shot"><div class="phone"><img src="assets/img/app-track.webp" width="600" height="1000" loading="lazy" decoding="async" alt="מסך המעקב והחזרות של שיננא"></div><figcaption data-i18n="g6">מעקב וחזרות</figcaption></figure><figure class="shot"><div class="phone"><img src="assets/img/app-themes.webp" width="600" height="1000" loading="lazy" decoding="async" alt="בחירת ערכת נושא באפליקציית שיננא"></div><figcaption data-i18n="g7">14 ערכות נושא</figcaption></figure></div>
+<button class="gal-btn" id="galNext" type="button" aria-label="הבא">‹</button></div>
+</div>
+</section>
 
-    <section id="contact" class="section">
-      <div class="wrap narrow">
-        <h2 data-i18n="contactTitle">צור קשר</h2>
-        <!-- TODO(contact-backend): point CONTACT_ACTION at the form endpoint when built -->
-        <form id="contactForm" class="contact-form" method="post" action="#">
-          <label><span data-i18n="cName">שם</span><input name="name" required /></label>
-          <label><span data-i18n="cEmail">אימייל</span><input name="email" type="email" required dir="ltr" /></label>
-          <label><span data-i18n="cMsg">הודעה</span><textarea name="message" rows="4" required></textarea></label>
-          <button class="btn btn-primary" type="submit" data-i18n="cSend">שליחה ✉️</button>
-          <p id="contactNote" class="form-note"></p>
-        </form>
-      </div>
-    </section>
-  </main>
+<section id="library" class="section">
+<div class="wrap lib">
+<div class="lib-txt">
+<span class="eyebrow" data-i18n="lbE">הספרייה</span>
+<h2 data-i18n="lbT">הספרייה כולה בכיס</h2>
+<p class="sub" data-i18n="lbS">כל הטקסטים יורדים פעם אחת בהפעלה הראשונה (כ-11 מגה בייט), ומשם הכול עובד גם בלי חיבור לרשת. באוטובוס, בטיסה או בלי קליטה.</p>
+<ul class="chips">
+<li data-i18n="c1">משנה · 63 מסכתות</li>
+<li data-i18n="c2">תנ״ך · 39 ספרים</li>
+<li data-i18n="c3">גמרא בבלית</li>
+<li data-i18n="c4">רמב״ם · משנה תורה</li>
+<li data-i18n="c5">שולחן ערוך · ארבעת הטורים</li>
+</ul>
+<a class="btn btn-primary btn-big" data-app-link href="#" data-i18n="lbC">לנסות עכשיו, בחינם</a>
+</div>
+<div class="lib-art"><div class="worlds"><img src="assets/img/world-mishna.webp" width="1200" height="669" loading="lazy" alt="נוף ירושלים, עולם המשנה בשיננא"><img src="assets/img/world-tanakh.webp" width="1200" height="669" loading="lazy" alt="נוף מדברי, עולם התנ״ך בשיננא"></div><img class="lib-mascot" src="assets/img/mascot-studying.webp" width="800" height="533" loading="lazy" alt="שיננא קורא בספר"></div>
+</div>
+</section>
 
-  <footer class="site-footer">
-    <div class="wrap footer-row">
-      <span data-i18n="rights">© שיננא — לימוד תורה בשמחה</span>
-      <nav>
-        <a data-app-link href="#" data-i18n="openApp">פתיחת האפליקציה</a>
-        <a href="#donate" data-i18n="navDonate2">תרומה</a>
-        <a href="privacy-he.html" data-i18n="navPrivacy2" data-i18n-href="privacy.html">פרטיות</a>
-        <a href="delete-account-he.html" data-i18n="navDeleteAccount" data-i18n-href="delete-account.html">מחיקת חשבון</a>
-        <a href="#contact" data-i18n="navContact2">צור קשר</a>
-      </nav>
-    </div>
-  </footer>
+<section class="section alt">
+<div class="wrap">
+<h2 data-i18n="auT">למי זה מתאים</h2>
+<div class="cards three"><article class="card reveal"><div class="card-ico" aria-hidden="true">🎒</div><h3 data-i18n="au1t">תלמידים ובני נוער</h3><p data-i18n="au1d">שינון למבחנים, בלי שעמום. כוכבים ודירוגים עושים את זה למשחק.</p></article><article class="card reveal"><div class="card-ico" aria-hidden="true">👨‍👩‍👧</div><h3 data-i18n="au2t">הורים ומלמדים</h3><p data-i18n="au2d">דרך כיפית לתרגל יחד. יעד יומי ורצפים מניעים להמשיך.</p></article><article class="card reveal"><div class="card-ico" aria-hidden="true">📚</div><h3 data-i18n="au3t">בוגרים ולומדי גמרא</h3><p data-i18n="au3d">עשר דקות ברכבת או בהפסקה, ושינון שנשאר לשנים.</p></article></div>
+</div>
+</section>
 
-  <script src="app.js"></script>
+<section id="video" class="section">
+<div class="wrap narrow">
+<h2 data-i18n="vT">שיננא ב-60 שניות</h2>
+<p class="sub" data-i18n="vS">הצצה לאפליקציה: דקלום, מפה וחזרות חכמות.</p>
+<div class="video-box"><video controls preload="none" playsinline poster="assets/video/poster.webp" width="1280" height="720"><source src="assets/video/shinena-promo.mp4" type="video/mp4"></video></div>
+</div>
+</section>
+
+<section id="faq" class="section alt">
+<div class="wrap narrow">
+<h2 data-i18n="faqT">שאלות נפוצות</h2>
+<div class="faq"><details class="faq-item"><summary data-i18n="q1">האם שיננא באמת חינמית?</summary><p data-i18n="a1">כן. שיננא חינמית, בלי פרסומות ובלי רכישות באפליקציה. תרומות עוזרות לממן שרתים ומקורות חדשים.</p></details><details class="faq-item"><summary data-i18n="q2">אפשר ללמוד בלי אינטרנט?</summary><p data-i18n="a2">כן. הטקסטים (כ-11 מגה בייט) יורדים פעם אחת בהפעלה הראשונה, ומשם האפליקציה עובדת גם בלי קליטה.</p></details><details class="faq-item"><summary data-i18n="q3">אילו טקסטים יש באפליקציה?</summary><p data-i18n="a3">כל 63 מסכתות המשנה, התנ״ך כולו, הגמרא הבבלית, הרמב״ם ושולחן ערוך.</p></details><details class="faq-item"><summary data-i18n="q4">איך שיננא בודקת את הדקלום?</summary><p data-i18n="a4">מדקלמים למיקרופון, והזיהוי הקולי בעברית משווה את מה שנאמר לטקסט מילה אחר מילה, כולל ניקוד, ומראה בדיוק איפה הייתה טעות.</p></details><details class="faq-item"><summary data-i18n="q5">מה זה SM-2?</summary><p data-i18n="a5">שיטת חזרות מרווחות. האלגוריתם מחשב מתי כל קטע צריך לחזור, לפי כמה טוב ידעתם אותו, כך שחוזרים בדיוק לפני שוכחים.</p></details><details class="faq-item"><summary data-i18n="q6">על אילו מכשירים זה עובד?</summary><p data-i18n="a6">אפשר לשחק עכשיו בדפדפן, בטלפון, בטאבלט ובמחשב, ויש גם גרסת בטא לאנדרואיד. גרסאות החנות בדרך.</p></details><details class="faq-item"><summary data-i18n="q7">ההקלטה שלי נשמרת?</summary><p data-i18n="a7">ההקלטה לא עוזבת את המכשיר אלא אם ביקשתם שנבדוק אותה. כל הפרטים במדיניות הפרטיות.</p></details></div>
+<p class="faq-more"><a href="delete-account-he.html" data-i18n="delLink" data-i18n-href="delete-account.html">איך מוחקים חשבון?</a> · <a href="privacy-he.html" data-i18n="privLink" data-i18n-href="privacy.html">מדיניות פרטיות</a></p>
+</div>
+</section>
+
+<section id="get" class="section get">
+<div class="wrap narrow center">
+<img class="get-mascot" src="assets/img/mascot-standing.webp" width="349" height="700" loading="lazy" alt="שיננא, דמות האפליקציה, עם הידיים על המותניים">
+<h2 data-i18n="gtT">מתחילים עכשיו, בחינם</h2>
+<p class="sub" data-i18n="gtS">האפליקציה בדפדפן עובדת במלואה. גרסאות החנות בדרך.</p>
+<a class="btn btn-gold btn-big" data-app-link href="#"><span data-i18n="gtB">שחקו בדפדפן</span><span aria-hidden="true" class="arr">←</span></a>
+<div class="store-row">
+<a class="store-btn" data-store="android-apk" href="#"><svg class="store-svg" viewBox="0 0 512 512" aria-hidden="true"><polygon points="70,60 200,186 200,326 70,452" fill="#00A0FF"/><polygon points="70,60 330,192 200,186" fill="#FFCE00"/><polygon points="70,452 330,320 200,326" fill="#FF3A44"/><polygon points="200,186 330,192 452,256 330,320 200,326" fill="#00F076"/></svg><span><strong data-i18n="apkT">אנדרואיד (בטא ישירה)</strong><small data-i18n="apkD">קובץ APK להתקנה ידנית</small></span></a>
+<a class="store-btn" data-store="play" href="#"><svg class="store-svg" viewBox="0 0 512 512" aria-hidden="true"><polygon points="70,60 200,186 200,326 70,452" fill="#00A0FF"/><polygon points="70,60 330,192 200,186" fill="#FFCE00"/><polygon points="70,452 330,320 200,326" fill="#FF3A44"/><polygon points="200,186 330,192 452,256 330,320 200,326" fill="#00F076"/></svg><span><strong>Google Play</strong><small data-store-note="play" data-i18n="soon">בקרוב</small></span></a>
+<a class="store-btn" data-store="ios" href="#"><svg class="store-svg" viewBox="0 0 384 512" aria-hidden="true"><path fill="#ffffff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span><strong>App Store</strong><small data-store-note="ios" data-i18n="soon2">בקרוב</small></span></a>
+</div>
+</div>
+</section>
+
+<section id="donate" class="section alt">
+<div class="wrap narrow center">
+<h2 data-i18n="dnT">אוהבים? עזרו לשיננא לצמוח 💛</h2>
+<p class="sub" data-i18n="dnS">שיננא חינמית ותישאר חינמית. תרומתכם מממנת שרתים, הקלטות ומקורות חדשים.</p>
+<a class="btn btn-primary btn-big" data-donate-link href="#" data-i18n="dnB">לתרומה מאובטחת</a>
+</div>
+</section>
+
+<section id="contact" class="section">
+<div class="wrap narrow">
+<h2 data-i18n="ctT">צור קשר</h2>
+<form id="contactForm" class="contact-form" method="post" action="#">
+<label><span data-i18n="cName">שם</span><input name="name" required autocomplete="name"></label>
+<label><span data-i18n="cEmail">אימייל</span><input name="email" type="email" required dir="ltr" autocomplete="email"></label>
+<label><span data-i18n="cMsg">הודעה</span><textarea name="message" rows="4" required></textarea></label>
+<button class="btn btn-primary" type="submit" data-i18n="cSend">שליחה</button>
+<p id="contactNote" class="form-note" role="status"></p>
+</form>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="wrap footer-row">
+<span data-i18n="rights">© שיננא - לימוד תורה בשמחה</span>
+<nav aria-label="קישורים בתחתית הדף">
+<a data-app-link href="#" data-i18n="openApp">פתיחת האפליקציה</a>
+<a href="#donate" data-i18n="nDon">תרומה</a>
+<a href="privacy-he.html" data-i18n="nPriv" data-i18n-href="privacy.html">פרטיות</a>
+<a href="delete-account-he.html" data-i18n="nDel" data-i18n-href="delete-account.html">מחיקת חשבון</a>
+<a href="#contact" data-i18n="nCon">צור קשר</a>
+</nav>
+</div>
+</footer>
+<script src="app.js"></script>
 </body>
 </html>
