@@ -265,7 +265,7 @@
   var currentIndex = 0;
   var busyUntil = 0;
   var anim = null;
-  var rail, track, fill, curEl, dots = [];
+  var rail, track, fill, curEl, topFill, nextBtn, nextTitle, dots = [];
 
   function reduce() { return !!(mqReduce && mqReduce.matches); }
   function coarse() { return !!(mqCoarse && mqCoarse.matches); }
@@ -278,7 +278,84 @@
 
   function labelFor(sec) {
     var h = sec.querySelector("h1,h2,h3");
-    return ((h && h.textContent) || "Section").replace(/\s+/g, " ").trim().slice(0, 44);
+    var text = (h && h.textContent) || sec.getAttribute("aria-label") || "Section";
+    return text.replace(/\s+/g, " ").trim().slice(0, 44);
+  }
+
+  // Staggered entrance, driven by timers so it works even where CSS animations don't tick.
+  var entranceTimers = [], entranceEls = [];
+
+  function stageSections() {
+    sections.forEach(function (sec) {
+      var kids = sec.querySelectorAll(".wrap > *");
+      if (!kids.length) kids = sec.children;
+      Array.prototype.forEach.call(kids, function (el, k) {
+        el.style.setProperty("--pg-i", k);
+        el.classList.add("pg-stage");
+      });
+    });
+  }
+
+  function clearEntrance() {
+    entranceTimers.forEach(clearTimeout);
+    entranceTimers = [];
+    entranceEls.forEach(function (el) {
+      el.style.opacity = "";
+      el.style.transform = "";
+      el.style.filter = "";
+    });
+    entranceEls = [];
+  }
+
+  function animateStage(el, dur) {
+    var t0 = performance.now();
+    function frame() {
+      var p = Math.min(1, (performance.now() - t0) / dur);
+      el.style.opacity = p.toFixed(3);
+      if (p < 1) {
+        entranceTimers.push(setTimeout(frame, 16));
+      } else {
+        el.style.opacity = "";
+      }
+    }
+    frame();
+  }
+
+  // Hide the destination while it is still off-screen, so arrival is a pure 0 -> 1 fade.
+  var pendingEntrance = -1;
+  function prepareEntrance(i) { pendingEntrance = i; }
+
+  function applyPendingEntrance() {
+    if (pendingEntrance < 0) return;
+    var i = pendingEntrance;
+    pendingEntrance = -1;
+    clearEntrance();
+    var kids = sections[i].querySelectorAll(".pg-stage");
+    if (!kids.length) return;
+    entranceEls = Array.prototype.slice.call(kids);
+    entranceEls.forEach(function (el) { el.style.opacity = "0"; });
+  }
+
+  function enterSection(i) {
+    if (!entranceEls.length) return; // nothing pre-hidden (e.g. native scroll): don't flash 1 -> 0
+    entranceEls.forEach(function (el) {
+      entranceTimers.push(setTimeout(function () { animateStage(el, 300); }, 0));
+    });
+  }
+
+  function updateNext(i) {
+    if (!nextBtn) return;
+    var last = i >= sections.length - 1;
+    nextBtn.classList.toggle("hidden", last);
+    if (last) return;
+    var title = labelFor(sections[i + 1]).slice(0, 32);
+    nextTitle.textContent = (document.documentElement.lang === "en" ? "Next · " : "הבא · ") + title;
+  }
+
+  function setTopProgress(y) {
+    if (!topFill) return;
+    var m = maxScroll();
+    topFill.style.width = (m > 0 ? clamp(y / m, 0, 1) * 100 : 0) + "%";
   }
 
   function buildRail() {
@@ -286,7 +363,7 @@
     rail.className = "pg-rail";
     rail.setAttribute("aria-label", "Section navigation");
     rail.innerHTML = '<div class="pg-count" aria-hidden="true"><span class="pg-cur">1</span><span>/</span><span class="pg-total">' + sections.length + '</span></div>' +
-      '<div class="pg-track"><div class="pg-line"></div><div class="pg-fill"></div></div>';
+      '<div class="pg-track"><div class="pg-line"></div><div class="pg-fill"><span class="pg-spark" aria-hidden="true">✦</span></div></div>';
     curEl = rail.querySelector(".pg-cur");
     track = rail.querySelector(".pg-track");
     fill = rail.querySelector(".pg-fill");
@@ -302,6 +379,20 @@
       dots.push(b);
     });
     document.body.appendChild(rail);
+
+    topFill = document.createElement("div");
+    topFill.className = "pg-topbar";
+    topFill.innerHTML = '<div class="pg-topbar-fill"></div>';
+    document.body.appendChild(topFill);
+    topFill = topFill.firstChild;
+
+    nextBtn = document.createElement("button");
+    nextBtn.className = "pg-next";
+    nextBtn.type = "button";
+    nextBtn.innerHTML = '<span class="pg-next-title"></span><span class="pg-next-arrow" aria-hidden="true">↓</span>';
+    nextTitle = nextBtn.querySelector(".pg-next-title");
+    nextBtn.addEventListener("click", function () { step(1); });
+    document.body.appendChild(nextBtn);
   }
 
   function updateUI(i) {
@@ -311,7 +402,9 @@
       d.classList.toggle("active", on);
       if (on) d.setAttribute("aria-current", "true");
       else d.removeAttribute("aria-current");
+      d.classList.toggle("visited", j < i);
     });
+    updateNext(i);
   }
 
   function dotCenter(i) {
@@ -336,6 +429,7 @@
     var b = Math.min(a + 1, dots.length - 1);
     var h1 = dotCenter(a), h2 = dotCenter(b);
     fill.style.height = Math.max(0, h1 + (h2 - h1) * (frac - a)) + "px";
+    setTopProgress(y);
   }
 
   function syncHeader() {
@@ -351,28 +445,31 @@
   }
 
   function cancelAnim() {
-    if (!anim) return;
-    clearTimeout(anim.timer);
-    anim = null;
-    document.documentElement.style.scrollBehavior = "";
+    if (anim) {
+      clearTimeout(anim.timer);
+      anim = null;
+      document.documentElement.style.scrollBehavior = "";
+    }
+    clearEntrance(); // never leave pre-hidden content invisible after an interrupted scroll
   }
 
   // Custom eased scroll animation (browser "smooth" scroll is abrupt and ignores easing).
-  function animateTo(target, duration) {
+  function animateTo(target, duration, onDone) {
     target = clamp(target, 0, maxScroll());
     var start = window.pageYOffset;
     var dist = target - start;
     cancelAnim();
+    applyPendingEntrance();
 
     if (Math.abs(dist) < 2) {
       window.scrollTo(0, target);
       setFillForY(target);
       busyUntil = performance.now() + 140;
+      if (onDone) onDone();
       return;
     }
 
     var dur = duration || clamp(Math.abs(dist) * 0.6, 500, 900);
-    // Keep a visible glide for everyone; just shorten it when reduced motion is requested.
     if (reduce()) dur = Math.min(dur, 320);
     var t0 = performance.now();
     var root = document.documentElement;
@@ -396,6 +493,7 @@
         window.scrollTo(0, target);
         anim = null;
         root.style.scrollBehavior = "";
+        if (onDone) onDone();
       }
     }
     a.timer = setTimeout(frame, 16);
@@ -405,7 +503,8 @@
     i = clamp(i, 0, sections.length - 1);
     currentIndex = i;
     updateUI(i);
-    animateTo(sectionTop(i));
+    prepareEntrance(i);
+    animateTo(sectionTop(i), null, function () { enterSection(i); });
   }
 
   function step(dir) {
@@ -421,15 +520,27 @@
       : Math.max(top, top + sec.offsetHeight - vh);
     var y = window.pageYOffset;
 
-    if (dir > 0 && y < maxY - 8) {
-      animateTo(Math.min(y + vh * 0.9, maxY), 520);
-      return;
-    }
-    if (dir > 0 && i === sections.length - 1 && y >= maxY - 8) return;
+    var minChunk = vh * 0.6;
 
-    if (dir < 0 && y > top + 8) {
-      animateTo(Math.max(y - vh * 0.9, top), 520);
-      return;
+    // The hero is a tall intro - go straight to the second section, no warm-up scroll.
+    if (i === 0 && dir > 0) { goTo(1); return; }
+
+    if (dir > 0) {
+      var remaining = maxY - y;
+      if (remaining > minChunk) {
+        // Split evenly so the final step is never a tiny, seemingly wasted scroll.
+        var n = Math.max(1, Math.ceil(remaining / (vh * 0.85)));
+        animateTo(y + remaining / n, 520);
+        return;
+      }
+      if (i === sections.length - 1 && y >= maxY - 8) return;
+    } else {
+      var back = y - top;
+      if (back > minChunk) {
+        var m = Math.max(1, Math.ceil(back / (vh * 0.85)));
+        animateTo(y - back / m, 520);
+        return;
+      }
     }
     goTo(i + dir);
   }
@@ -441,6 +552,7 @@
     return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "VIDEO";
   }
 
+  stageSections();
   buildRail();
   syncHeader();
   syncIndex();
@@ -481,7 +593,9 @@
     setTimeout(function () {
       ticking = false;
       if (performance.now() < busyUntil) return;
+      var before = currentIndex;
       syncIndex();
+      if (currentIndex !== before) enterSection(currentIndex);
     }, 30);
   }, { passive: true });
 
@@ -512,5 +626,6 @@
       dots[i].setAttribute("data-label", l);
       dots[i].setAttribute("aria-label", l);
     });
+    updateNext(currentIndex);
   });
 })();
