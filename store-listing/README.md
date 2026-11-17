@@ -67,3 +67,6 @@ server, the app still opens and falls back to the regular text servers.
 - [ ] The screenshots show the real app, not mock-ups.
 - [ ] The app bundle contains no dev tools: `VITE_SHOW_DEV_TOOLS=false` on the
       build machine.
+- [x] IARC questionnaire completed in Play Console (target audience declared;
+      no ads, IAP, chat/UGC, violence, sexuality, profanity, substances, gambling
+      or location sharing beyond optional country for the leaderboard).
