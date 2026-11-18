@@ -48,7 +48,7 @@ then on. A reviewer sees a progress screen ("Downloading the texts…") before
 the app opens; no account, no login and no personal data are needed for it.
 
 The download comes from the project's own GitHub release
-(`github.com/sniffis-commits/shinena-texts`, release `v1`) and contains JSON
+(`github.com/sniffis-commits/shinena-books`, release `v1`) and contains JSON
 text files only — no executable code. If the download cannot reach the
 server, the app still opens and falls back to the regular text servers.
 
