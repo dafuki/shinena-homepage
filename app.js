@@ -72,6 +72,7 @@
   // ---- HE/EN toggle (minimal dictionary; Hebrew is default) ----
   var currentLang = document.documentElement.lang || "he";
   var STR = { en: {
+"familyBy":"Part of the Ben Torah family","familyKicker":"One family, many ways to learn","familyTitle":"More to discover with Ben Torah","familyDesc":"Shinena, Tehila and the twins are part of one family. Each sibling opens a different door to learning through voice, play and joy.","familyCta":"Meet the family and all the apps","familyShinena":"Shinena","familyTehila":"Tehila","familyTwins":"Meet the twins","familyUpcoming":"Coming next: Moriah, Lamdani and Chaim.",
   "q1": "Is Shinena really free?",
   "a1": "Yes. Shinena is free, with no ads and no in-app purchases. Donations help fund servers and new texts.",
   "q2": "Can I study offline?",
