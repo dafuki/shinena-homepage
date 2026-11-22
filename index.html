@@ -40,12 +40,14 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "he", "mainEntity": [{"@type": "Question", "name": "האם שיננא באמת חינמית?", "acceptedAnswer": {"@type": "Answer", "text": "כן. שיננא חינמית, בלי פרסומות ובלי רכישות באפליקציה. תרומות עוזרות לממן שרתים ומקורות חדשים."}}, {"@type": "Question", "name": "אפשר ללמוד בלי אינטרנט?", "acceptedAnswer": {"@type": "Answer", "text": "כן. הטקסטים (כ-11 מגה בייט) יורדים פעם אחת בהפעלה הראשונה, ומשם האפליקציה עובדת גם בלי קליטה."}}, {"@type": "Question", "name": "אילו טקסטים יש באפליקציה?", "acceptedAnswer": {"@type": "Answer", "text": "כל 63 מסכתות המשנה, התנ״ך כולו, התלמוד הבבלי, הרמב״ם ושולחן ערוך."}}, {"@type": "Question", "name": "איך שיננא בודקת את הדקלום?", "acceptedAnswer": {"@type": "Answer", "text": "מדקלמים למיקרופון, והזיהוי הקולי בעברית משווה את מה שנאמר לטקסט מילה אחר מילה, כולל ניקוד, ומראה בדיוק איפה הייתה טעות."}}, {"@type": "Question", "name": "מה זה SM-2?", "acceptedAnswer": {"@type": "Answer", "text": "שיטת חזרות מרווחות. האלגוריתם מחשב מתי כל קטע צריך לחזור, לפי כמה טוב ידעתם אותו, כך שחוזרים בדיוק לפני שוכחים."}}, {"@type": "Question", "name": "על אילו מכשירים זה עובד?", "acceptedAnswer": {"@type": "Answer", "text": "אפשר לשחק עכשיו בדפדפן, בטלפון, בטאבלט ובמחשב, ויש גם גרסת בטא לאנדרואיד. גרסאות החנות בדרך."}}, {"@type": "Question", "name": "ההקלטה שלי נשמרת?", "acceptedAnswer": {"@type": "Answer", "text": "ההקלטה לא עוזבת את המכשיר אלא אם ביקשתם שנבדוק אותה. כל הפרטים במדיניות הפרטיות."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoObject", "name": "שיננא ב-60 שניות", "description": "הצצה לאפליקציית שיננא: דקלום בקול, מפת הרפתקאות וחזרות חכמות.", "thumbnailUrl": "https://shinena.vercel.app/assets/video/poster.webp", "contentUrl": "https://shinena.vercel.app/assets/video/shinena-promo.mp4", "uploadDate": "2026-11-17", "duration": "PT59S", "inLanguage": "he"}</script>
 <script src="config.js"></script>
+<link rel="stylesheet" href="family-brand.css">
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">דלגו לתוכן</a>
 <header class="site-header">
 <div class="wrap header-row">
-<a class="brand" href="#top" aria-label="שיננא - לראש הדף"><img src="icon-192.png" width="44" height="44" alt="" class="brand-ico"><span class="brand-txt"><strong data-i18n="brand">שיננא</strong><small data-i18n="tag">ללמוד. לשנן. לזכור.</small></span></a>
+<div class="family-brand-identity"><a class="brand" href="#top" aria-label="שיננא - לראש הדף"><img src="icon-192.png" width="44" height="44" alt="" class="brand-ico"><span class="brand-txt"><strong data-i18n="brand">שיננא</strong><small data-i18n="tag">ללמוד. לשנן. לזכור.</small></span></a>
+<a class="family-brand-link" href="https://bentora-family.vercel.app/" data-i18n="familyBy">מבית משפחת בן תורה</a></div>
 <nav class="topnav" aria-label="ניווט ראשי">
 <a href="#how" data-i18n="nHow">איך זה עובד</a>
 <a href="#features" data-i18n="nFeat">יתרונות</a>
@@ -82,6 +84,24 @@
 </div>
 </div>
 </section>
+<section id="ben-torah-family" class="family-brand-area" aria-labelledby="family-brand-title">
+  <div class="wrap family-brand-grid">
+    <div class="family-brand-copy">
+      <span class="family-brand-kicker" data-i18n="familyKicker">משפחה אחת, הרבה דרכים ללמוד</span>
+      <h2 id="family-brand-title" data-i18n="familyTitle">עוד לומדים במשפחת בן תורה</h2>
+      <p data-i18n="familyDesc">שיננא, תהילה והתאומים הם חלק ממשפחה אחת. כל אח ואחות פותחים דלת לעולם אחר של לימוד, בקול, במשחק ובשמחה.</p>
+      <a class="btn btn-primary" href="https://bentora-family.vercel.app/" data-i18n="familyCta">לכל המשפחה והאפליקציות</a>
+      <div class="family-brand-actions" aria-label="Ben Torah">
+        <a class="family-brand-pill" href="https://shinena.vercel.app/" data-i18n="familyShinena">שיננא</a>
+        <a class="family-brand-pill" href="https://tehila-homepage.vercel.app/" data-i18n="familyTehila">תהילה</a>
+        <a class="family-brand-pill" href="https://teomin-homepage.vercel.app/" data-i18n="familyTwins">מכירים את התאומים</a>
+      </div>
+      <p class="family-brand-upcoming" data-i18n="familyUpcoming">ובדרך: מוריה, למדני וחיים.</p>
+    </div>
+    <img class="family-brand-photo" src="assets/img/ben-torah-family.jpg" width="1536" height="1024" alt="Ben Torah" loading="lazy" decoding="async">
+  </div>
+</section>
+
 
 <section class="stats" aria-label="במספרים">
 <div class="wrap stats-row">
@@ -209,6 +229,7 @@
 <div class="wrap footer-row">
 <span data-i18n="rights">© שיננא - לימוד תורה בשמחה</span>
 <nav aria-label="קישורים בתחתית הדף">
+<a href="https://bentora-family.vercel.app/" data-i18n="familyCta">לכל המשפחה והאפליקציות</a>
 <a data-app-link href="#" data-i18n="openApp">פתיחת האפליקציה</a>
 <a href="#donate" data-i18n="nDon">תרומה</a>
 <a href="privacy-he.html" data-i18n="nPriv" data-i18n-href="privacy.html">פרטיות</a>
@@ -219,4 +240,4 @@
 </footer>
 <script src="app.js"></script>
 </body>
-</html>
+                                            </html>
